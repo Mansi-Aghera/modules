@@ -30,6 +30,7 @@ export default function Course() {
     language: "",
     certificate: "No",
     image: null,
+    banner_img: null,
     pdf_file: null,
   };
 
@@ -79,6 +80,7 @@ export default function Course() {
       language: item.language || "",
       certificate: item.certificate || "No",
       image: null,
+      banner_img: null,
       pdf_file: null,
     });
     setEditingItem(item);
@@ -299,6 +301,19 @@ export default function Course() {
             <p className="text-xs text-gray-500 mt-1">Upload thumbnail image</p>
           </div>
 
+          {/* BANNER IMAGE */}
+          <div>
+            <label className="block mb-1 font-medium">Banner Image</label>
+            <input
+              type="file"
+              name="banner_img"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full"
+            />
+            <p className="text-xs text-gray-500 mt-1">Upload banner image</p>
+          </div>
+
           {/* PDF */}
           <div className="col-span-2">
             <label className="block mb-1 font-medium">Course PDF</label>
@@ -378,6 +393,18 @@ export default function Course() {
               />
             )}
           </div>
+          {/* BANNER IMAGE */}
+          {viewCourse.banner_img && (
+            <div className="col-span-2">
+              <b>Banner Image:</b>
+              <br />
+              <img
+                src={viewCourse.banner_img}
+                alt="banner"
+                className="w-full max-w-md mt-2 border"
+              />
+            </div>
+          )}
 
           {/* PDF */}
           <div className="col-span-2">
@@ -416,6 +443,7 @@ export default function Course() {
             <tr className="bg-gray-100">
               <th>Name</th>
               <th>Image</th>
+              <th>Banner</th>
               <th>PDF</th>
               <th>Duration</th>
               <th>Lectures</th>
@@ -432,6 +460,13 @@ export default function Course() {
                 <td>{item.name}</td>
                 <td>
                   {item.image && <img src={item.image} className="img" />}
+                </td>
+                <td>
+                  {item.banner_img ? (
+                    <img src={item.banner_img} className="img" />
+                  ) : (
+                    <span className="text-gray-400 text-xs">No Banner</span>
+                  )}
                 </td>
                 <td>
                   {item.pdf_file && (
