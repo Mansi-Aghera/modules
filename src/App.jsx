@@ -9,7 +9,7 @@ import Bed from "./pages/Bed";
 
 import "./App.css";
 import Faqs from "./pages/Faqs";
-import Counsellor from "./pages/counsellor";
+import Counsellor from "./pages/Counsellor";
 import Testimonials from "./pages/Testimonials";
 import Course from "./pages/Course";
 
