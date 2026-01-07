@@ -7,7 +7,7 @@ import {
 } from "../services/courses.service";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 import "./bed.css";
-
+import { getCategories } from "../services/category.service";
 
 export default function Course() {
   const [courses, setCourses] = useState([]);
@@ -17,10 +17,11 @@ export default function Course() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [viewCourse, setViewCourse] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const EMPTY_FORM = {
     name: "",
-    category: "41",
+    category: "",
     text: "",
     duration: "",
     lecture: "",
@@ -36,6 +37,7 @@ export default function Course() {
 
   useEffect(() => {
     loadCourses();
+    loadCategories();
   }, []);
 
   const loadCourses = async () => {
@@ -50,6 +52,15 @@ export default function Course() {
     }
   };
 
+  const loadCategories = async () => {
+    try {
+      const data = await getCategories();
+      setCategories(data || []);
+    } catch (err) {
+      console.error("Failed to load categories");
+    }
+  };
+
   const openAddForm = () => {
     setFormData(EMPTY_FORM);
     setEditingItem(null);
@@ -59,6 +70,7 @@ export default function Course() {
   const openEditForm = (item) => {
     setFormData({
       name: item.name || "",
+      category: item.category || "", // ✅ IMPORTANT
       text: item.text || "",
       duration: item.duration || "",
       lecture: item.lecture || "",
@@ -67,7 +79,6 @@ export default function Course() {
       language: item.language || "",
       certificate: item.certificate || "No",
       image: null,
-      banner_img: null,
       pdf_file: null,
     });
     setEditingItem(item);
@@ -146,7 +157,7 @@ export default function Course() {
           onClick={openAddForm}
           className="bg-indigo-600 text-white px-4 py-2 rounded flex gap-2 align-items-center"
         >
-          <Plus size={16} className="d-flex align-item-center"/> Add Course
+          <Plus size={16} className="d-flex align-item-center" /> Add Course
         </button>
       </div>
 
@@ -251,8 +262,14 @@ export default function Course() {
             value={formData.category}
             onChange={handleChange}
             required
+            className="w-full border rounded px-3 py-2"
           >
-            <option value="41">Sales Marketing</option>
+            <option value="">Select Category</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
           </select>
 
           {/* CERTIFICATE */}

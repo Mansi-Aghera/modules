@@ -9,7 +9,6 @@ import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 
 const IMAGE_BASE_URL = "https://codingcloud.pythonanywhere.com";
 
-
 export default function Category() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -189,9 +188,9 @@ export default function Category() {
             <br />
             {viewCategory.image && (
               <img
-  src={`${IMAGE_BASE_URL}${viewCategory.image}`}
-  className="w-20 mt-2 border img"
-/>
+                src={`${IMAGE_BASE_URL}${viewCategory.image}`}
+                className="w-20 mt-2 border img"
+              />
             )}
           </div>
 
@@ -226,9 +225,10 @@ export default function Category() {
                 <td>
                   {item.image && (
                     <img
-  src={`${IMAGE_BASE_URL}${item.image}`}
-  className="w-10 mx-auto img"
-/>                  )}
+                      src={`${IMAGE_BASE_URL}${item.image}`}
+                      className="w-10 mx-auto img"
+                    />
+                  )}
                 </td>
                 <td>{item.text}</td>
                 <td className="flex gap-2 justify-center">
