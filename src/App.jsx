@@ -24,9 +24,7 @@ function App() {
         <div className="container-fluid mt-4">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/bed" element={<Bed />} />
             <Route path="/faqs" element={<Faqs />} />
-            <Route path="/counsellor" element={<Counsellor />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/course" element={<Course />} />
           </Routes>

@@ -12,22 +12,10 @@ function Sidebar() {
             Dashboard
           </Link>
         </li>
-
-        <li className="nav-item">
-          <Link className="nav-link text-white" to="/bed">
-            Bed
-          </Link>
-        </li>
         
         <li className="nav-item">
           <Link className="nav-link text-white" to="/faqs">
             FAQS
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link className="nav-link text-white" to="/counsellor">
-            Counsellor
           </Link>
         </li>
 

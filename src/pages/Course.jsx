@@ -5,7 +5,7 @@ import {
   updateCourse,
   deleteCourse,
 } from "../services/courses.service";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 
 export default function Course() {
   const [courses, setCourses] = useState([]);
@@ -14,9 +14,11 @@ export default function Course() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [viewCourse, setViewCourse] = useState(null);
 
   const EMPTY_FORM = {
     name: "",
+    category: "41",
     text: "",
     duration: "",
     lecture: "",
@@ -90,21 +92,18 @@ export default function Course() {
     e.preventDefault();
 
     const payload = new FormData();
-   Object.entries(formData).forEach(([key, value]) => {
-  // 🔥 DO NOT SEND empty / null values
-  if (value === null) return;
+    Object.entries(formData).forEach(([key, value]) => {
+      // 🔥 DO NOT SEND empty / null values
+      if (value === null) return;
 
-  if (key === "certificate") {
-    payload.append("certificate", value === "Yes");
-  } 
-  else if (["duration", "lecture", "students"].includes(key)) {
-    payload.append(key, Number(value));
-  } 
-  else {
-    payload.append(key, value);
-  }
-});
-
+      if (key === "certificate") {
+        payload.append("certificate", value === "Yes");
+      } else if (["duration", "lecture", "students"].includes(key)) {
+        payload.append(key, Number(value));
+      } else {
+        payload.append(key, value);
+      }
+    });
 
     try {
       setLoading(true);
@@ -115,18 +114,21 @@ export default function Course() {
       }
       closeForm();
       loadCourses();
-    } catch(err) {
+    } catch (err) {
       setError("Save failed");
-   
-  console.log("FULL ERROR:", err);
-  console.log("BACKEND RESPONSE:", err.response?.data);
-  alert(JSON.stringify(err.response?.data, null, 2));
-  setError("Save failed");
 
-
+      console.log("FULL ERROR:", err);
+      console.log("BACKEND RESPONSE:", err.response?.data);
+      alert(JSON.stringify(err.response?.data, null, 2));
+      setError("Save failed");
     } finally {
       setLoading(false);
     }
+  };
+
+  const openView = (course) => {
+    setViewCourse(course);
+    setIsFormOpen(false);
   };
 
   const deleteItem = async (id) => {
@@ -241,6 +243,17 @@ export default function Course() {
             />
           </div>
 
+          {/* categorgy */}
+          <label className="block mb-1 font-medium">Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="41">Sales Marketing</option>
+          </select>
+
           {/* CERTIFICATE */}
           <div>
             <label className="block mb-1 font-medium">Certificate</label>
@@ -265,9 +278,7 @@ export default function Course() {
               onChange={handleFileChange}
               className="w-full"
             />
-            <p className="text-xs text-gray-500 mt-1">
-              Upload thumbnail image
-            </p>
+            <p className="text-xs text-gray-500 mt-1">Upload thumbnail image</p>
           </div>
 
           {/* BANNER */}
@@ -280,9 +291,7 @@ export default function Course() {
               onChange={handleFileChange}
               className="w-full"
             />
-            <p className="text-xs text-gray-500 mt-1">
-              Upload banner image
-            </p>
+            <p className="text-xs text-gray-500 mt-1">Upload banner image</p>
           </div>
 
           {/* PDF */}
@@ -316,6 +325,96 @@ export default function Course() {
         </form>
       )}
 
+      {/* ✅ FULL VIEW */}
+      {viewCourse && (
+        <div className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-4">
+          <div>
+            <b>Name:</b> {viewCourse.name}
+          </div>
+
+          <div>
+            <b>Category:</b> {viewCourse.category_details?.name}
+          </div>
+
+          <div className="col-span-2">
+            <b>Description:</b> {viewCourse.text}
+          </div>
+
+          <div>
+            <b>Duration:</b> {viewCourse.duration}
+          </div>
+          <div>
+            <b>Lectures:</b> {viewCourse.lecture}
+          </div>
+
+          <div>
+            <b>Students:</b> {viewCourse.students}
+          </div>
+          <div>
+            <b>Level:</b> {viewCourse.level}
+          </div>
+
+          <div>
+            <b>Language:</b> {viewCourse.language}
+          </div>
+          <div>
+            <b>Certificate:</b> {viewCourse.certificate}
+          </div>
+
+          {/* IMAGE */}
+          <div>
+            <b>Course Image:</b>
+            <br />
+            {viewCourse.image && (
+              <img
+                src={viewCourse.image}
+                alt="course"
+                className="w-10 mt-2 border img"
+              />
+            )}
+          </div>
+
+          {/* BANNER */}
+          <div>
+            <b>Banner Image:</b>
+            <br />
+            {viewCourse.banner_img && (
+              <img
+                src={viewCourse.banner_img}
+                alt="banner"
+                className="w-40 mt-2 border img"
+              />
+            )}
+          </div>
+
+          {/* PDF */}
+          <div className="col-span-2">
+            <b>PDF:</b>{" "}
+            {viewCourse.pdf_file ? (
+              <a
+                href={viewCourse.pdf_file}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 underline"
+              >
+                View PDF
+              </a>
+            ) : (
+              "No PDF"
+            )}
+          </div>
+
+          <div className="col-span-2">
+            <button
+              onClick={() => setViewCourse(null)}
+              className="mt-4 underline text-blue-600"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* TABLE (UNCHANGED) */}
       {loading ? (
         <p>Loading...</p>
@@ -340,11 +439,22 @@ export default function Course() {
             {courses.map((item) => (
               <tr key={item.id} className="border-t text-center">
                 <td>{item.name}</td>
-                <td>{item.image && <img src={item.image} className="img" />}</td>
-                <td>{item.banner_img && <img src={item.banner_img} className="img" />}</td>
+                <td>
+                  {item.image && <img src={item.image} className="img" />}
+                </td>
+                <td>
+                  {item.banner_img && (
+                    <img src={item.banner_img} className="img" />
+                  )}
+                </td>
                 <td>
                   {item.pdf_file && (
-                    <a href={item.pdf_file} target="_blank" rel="noreferrer" className="text-blue-600 underline">
+                    <a
+                      href={item.pdf_file}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 underline"
+                    >
                       View
                     </a>
                   )}
@@ -356,6 +466,9 @@ export default function Course() {
                 <td>{item.language}</td>
                 <td>{item.certificate}</td>
                 <td className="flex gap-2 justify-center">
+                  <button onClick={() => openView(item)}>
+                    <Eye size={16} />
+                  </button>
                   <button onClick={() => openEditForm(item)}>
                     <Pencil size={16} />
                   </button>
