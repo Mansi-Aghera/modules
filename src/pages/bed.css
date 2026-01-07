@@ -244,217 +244,697 @@ td button:hover {
 } */
 
 
+/* Dashboard Container */
+.container-fluid {
+  min-height: 100vh;
+  padding: 30px;
+}
 
-/* =========================
-   GLOBAL RESET & THEME
-========================= */
+/* Card common styles */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Card body */
+.card-body {
+  padding: 30px;
+  text-align: center;
+}
+
+/* Card titles */
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* Card numbers */
+.card-text {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+/* Custom colors enhancement */
+.bg-primary {
+  background: linear-gradient(135deg, #4e73df, #224abe) !important;
+}
+
+.bg-success {
+  background: linear-gradient(135deg, #1cc88a, #0f6848) !important;
+}
+
+.bg-warning {
+  background: linear-gradient(135deg, #f6c23e, #b88a00) !important;
+  color: #fff !important;
+}
+
+/* Responsive spacing */
+@media (max-width: 768px) {
+  .card-text {
+    font-size: 1.8rem;
+  }
+}
+
+.course-page {
+  background: #f5f8fa;
+  min-height: 100vh;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+}
+
+.card-header {
+  background: #fff;
+  font-size: 15px;
+}
+
+.course-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6c757d;
+}
+
+.table td {
+  font-size: 14px;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+
+/* ===============================
+   🔥 PREMIUM ADMIN UI – COURSE PAGE
+   Client-Ready Professional Design
+================================ */
+
+/* -------- RESET / BASE -------- */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background-color: #f3f4f6;
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  color: #1f2937;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #111827;
 }
 
-/* =========================
-   PAGE CONTAINER
-========================= */
-.page-wrapper {
-  padding: 24px;
-  max-width: 1200px;
-  margin: auto;
+/* -------- PAGE WRAPPER -------- */
+.p-6.max-w-7xl.mx-auto {
+  background: transparent;
 }
 
-/* =========================
-   HEADERS
-========================= */
-.page-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 20px;
+/* -------- HEADER -------- */
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+/* Add button */
+.bg-indigo-600 {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
 }
 
-.btn-primary {
-  background-color: #4f46e5;
-  color: white;
+.bg-indigo-600:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.45);
 }
 
-.btn-primary:hover {
-  background-color: #4338ca;
+/* -------- FORM (ADD / EDIT) -------- */
+form {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: fadeUp 0.4s ease;
 }
 
-.btn-success {
-  background-color: #16a34a;
-  color: white;
-}
-
-.btn-danger {
-  background-color: #dc2626;
-  color: white;
-}
-
-.btn-ghost {
-  background-color: transparent;
-}
-
-.btn-ghost:hover {
-  background-color: #e5e7eb;
-}
-
-/* =========================
-   FORM CARD
-========================= */
-.card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 24px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-  margin-bottom: 24px;
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 label {
   font-size: 13px;
-  font-weight: 500;
-  color: #6b7280;
-  margin-bottom: 4px;
-  display: block;
+  font-weight: 600;
+  color: #374151;
 }
 
 input,
-select,
-textarea {
+textarea,
+select {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
   font-size: 14px;
-  margin-bottom: 14px;
+  transition: all 0.25s ease;
 }
 
 input:focus,
-select:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  background: #ffffff;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
 }
 
-/* =========================
-   TABLE
-========================= */
-.table-wrapper {
-  background-color: #ffffff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+/* Form buttons */
+.bg-green-600 {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.35);
 }
 
+.bg-green-600:hover {
+  transform: translateY(-2px);
+}
+
+.border.px-6.py-2.rounded {
+  border-radius: 14px;
+  background: #f3f4f6;
+}
+
+/* -------- VIEW COURSE CARD -------- */
+.bg-white.p-6.rounded {
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.bg-white b {
+  color: #4f46e5;
+}
+
+/* -------- TABLE -------- */
 table {
+  margin-top: 30px;
   width: 100%;
-  border-collapse: collapse;
-}
-
-thead {
-  background-color: #f9fafb;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
 }
 
 th {
-  text-align: left;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 16px 12px;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
   color: #6b7280;
-  padding: 14px;
+  background: #f9fafb;
 }
 
 td {
-  padding: 14px;
-  font-size: 14px;
-  border-top: 1px solid #e5e7eb;
-}
-
-tbody tr:hover {
-  background-color: #f3f4f6;
-}
-
-/* =========================
-   ACTION ICONS
-========================= */
-.action-btn {
-  padding: 6px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.action-btn:hover {
-  background-color: #e5e7eb;
-}
-
-/* =========================
-   VIEW PANEL
-========================= */
-.view-panel {
-  background-color: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-  margin-bottom: 24px;
-}
-
-.view-panel p {
-  margin: 8px 0;
+  padding: 14px 10px;
   font-size: 14px;
 }
 
-.view-panel b {
+tr {
+  transition: background 0.25s ease;
+}
+
+tr:hover {
+  background: #eef2ff;
+}
+
+/* -------- IMAGES -------- */
+.img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* -------- ACTION ICONS -------- */
+td .flex button {
+  padding: 8px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+td .flex button:hover {
+  background: #e0e7ff;
+  transform: scale(1.15);
+}
+
+/* -------- LINKS -------- */
+a.text-blue-600 {
+  color: #4f46e5;
   font-weight: 600;
 }
 
-/* =========================
-   IMAGES
-========================= */
-.preview-img {
-  width: 140px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  margin-top: 6px;
+/* -------- RESPONSIVE -------- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .img {
+    width: 50px;
+    height: 50px;
+  }
+
+  form {
+    grid-template-columns: 1fr !important;
+    padding: 20px;
+  }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+
+/* ===============================
+   🔥 PREMIUM ADMIN UI – COURSE PAGE
+   Client-Ready Professional Design
+================================ */
+
+/* -------- RESET / BASE -------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #111827;
+}
+
+/* -------- PAGE WRAPPER -------- */
+.p-6.max-w-7xl.mx-auto {
+  background: transparent;
+}
+
+/* -------- HEADER -------- */
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Add button */
+.bg-indigo-600 {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+}
+
+.bg-indigo-600:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.45);
+}
+
+/* -------- FORM (ADD / EDIT) -------- */
+form {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+/* Form buttons */
+.bg-green-600 {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.35);
+}
+
+.bg-green-600:hover {
+  transform: translateY(-2px);
+}
+
+.border.px-6.py-2.rounded {
+  border-radius: 14px;
+  background: #f3f4f6;
+}
+
+/* -------- VIEW COURSE CARD -------- */
+.bg-white.p-6.rounded {
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.bg-white b {
+  color: #4f46e5;
+}
+
+/* -------- TABLE -------- */
+table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+}
+
+th {
+  padding: 16px 12px;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+td {
+  padding: 14px 10px;
+  font-size: 14px;
+}
+
+tr {
+  transition: background 0.25s ease;
+}
+
+tr:hover {
+  background: #eef2ff;
+}
+
+/* -------- IMAGES -------- */
+.img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* -------- ACTION ICONS -------- */
+td .flex button {
+  padding: 8px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+td .flex button:hover {
+  background: #e0e7ff;
+  transform: scale(1.15);
+}
+
+/* -------- LINKS -------- */
+a.text-blue-600 {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* -------- RESPONSIVE -------- */
 @media (max-width: 768px) {
-  .page-wrapper {
-    padding: 16px;
+  h1 {
+    font-size: 22px;
   }
 
-  .page-title {
-    font-size: 18px;
+  table {
+    font-size: 12px;
   }
 
-  th,
-  td {
-    font-size: 13px;
+  .img {
+    width: 50px;
+    height: 50px;
   }
 
-  .preview-img {
-    width: 100px;
+  form {
+    grid-template-columns: 1fr !important;
+    padding: 20px;
   }
+}
+
+/* ===============================
+   🔥 PROFESSIONAL SIDEBAR (ADMIN)
+   Metronic / Vuexy Inspired
+================================ */
+
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+}
+
+/* Sidebar Title */
+.sidebar h4 {
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  color: #e5e7eb;
+}
+
+/* Nav List */
+.sidebar .nav {
+  gap: 6px;
+}
+
+/* Nav Links */
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #cbd5f5 !important;
+  transition: all 0.25s ease;
+}
+
+/* Hover Effect */
+.sidebar .nav-link:hover {
+  background: linear-gradient(90deg, #4f46e5, #4338ca);
+  color: #ffffff !important;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.45);
+  transform: translateX(6px);
+}
+
+/* Active Link (manual class future ready) */
+.sidebar .nav-link.active {
+  background: linear-gradient(90deg, #6366f1, #4f46e5);
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+/* Divider style if needed */
+.sidebar hr {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+  }
+}
+
+
+/* ===== FIXED TOP NAVBAR ===== */
+.navbar {
+  height: 64px;
+  background: linear-gradient(90deg, #ffffff, #f8fafc) !important;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+
+  margin: 0;        /* 🔥 important */
+}
+
+/* ❌ BODY NE TOUCH NA KARVU */
+body {
+  padding-top: 0 !important;
+}
+
+/* ✅ CONTENT NICHE THI START */
+.page-content {
+  margin-top: 64px;
+}
+
+/* Brand */
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827 !important;
+}
+
+/* Logout button */
+.navbar .btn-outline-danger {
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.navbar .btn-outline-danger:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  border-color: transparent;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+
+/* ===== GLOBAL RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f8fa;
+}
+
+/* Sidebar width fixed */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+/* Right side (navbar + content) */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar already fixed height */
+.navbar {
+  height: 64px;
+}
+
+/* 🔥 MAIN CONTENT WRAPPER (KEY PART) */
+.app-content {
+  padding: 32px;              /* ✅ SAME SPACE EVERYWHERE */
+  max-width: 100%;
+}
+
+/* ===== PAGE HEADERS ===== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1,
+.page-header h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* ===== CARDS ===== */
+.card,
+.table-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+
+/* ===== TABLE CONTAINER ===== */
+.table-wrapper {
+  margin-top: 16px;
+}
+
+/* ===== REMOVE RANDOM CONTAINERS ===== */
+.container,
+.container-fluid {
+  padding: 0 !important;
+  margin: 0 !important;
 }

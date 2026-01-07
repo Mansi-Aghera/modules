@@ -6,7 +6,7 @@ import {
   deleteCourse,
 } from "../services/courses.service";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
-import "../pages/bed.css";
+import "./bed.css";
 
 
 export default function Course() {
@@ -29,7 +29,6 @@ export default function Course() {
     language: "",
     certificate: "No",
     image: null,
-    banner_img: null,
     pdf_file: null,
   };
 
@@ -140,14 +139,14 @@ export default function Course() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto page-wrapper">
+    <div className="p-6 max-w-6xl mx-auto">
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold page-title">Course Management</h1>
+        <h1 className="text-2xl font-bold">Course Management</h1>
         <button
           onClick={openAddForm}
-          className="bg-indigo-600 text-white px-4 py-2 rounded flex gap-2"
+          className="bg-indigo-600 text-white px-4 py-2 rounded flex gap-2 align-items-center"
         >
-          <Plus size={16} /> Add Course
+          <Plus size={16} className="d-flex align-item-center"/> Add Course
         </button>
       </div>
 
@@ -157,7 +156,7 @@ export default function Course() {
       {isFormOpen && (
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6 card"
+          className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
         >
           {/* NAME */}
           <div>
@@ -283,19 +282,6 @@ export default function Course() {
             <p className="text-xs text-gray-500 mt-1">Upload thumbnail image</p>
           </div>
 
-          {/* BANNER */}
-          <div>
-            <label className="block mb-1 font-medium">Banner Image</label>
-            <input
-              type="file"
-              name="banner_img"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full"
-            />
-            <p className="text-xs text-gray-500 mt-1">Upload banner image</p>
-          </div>
-
           {/* PDF */}
           <div className="col-span-2">
             <label className="block mb-1 font-medium">Course PDF</label>
@@ -329,7 +315,7 @@ export default function Course() {
 
       {/* ✅ FULL VIEW */}
       {viewCourse && (
-        <div className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-4 view-panel">
+        <div className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-4">
           <div>
             <b>Name:</b> {viewCourse.name}
           </div>
@@ -376,19 +362,6 @@ export default function Course() {
             )}
           </div>
 
-          {/* BANNER */}
-          <div>
-            <b>Banner Image:</b>
-            <br />
-            {viewCourse.banner_img && (
-              <img
-                src={viewCourse.banner_img}
-                alt="banner"
-                className="w-40 mt-2 border img"
-              />
-            )}
-          </div>
-
           {/* PDF */}
           <div className="col-span-2">
             <b>PDF:</b>{" "}
@@ -421,12 +394,11 @@ export default function Course() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="w-full border text-sm table-wrapper">
+        <table className="w-full border text-sm">
           <thead>
             <tr className="bg-gray-100">
               <th>Name</th>
               <th>Image</th>
-              <th>Banner</th>
               <th>PDF</th>
               <th>Duration</th>
               <th>Lectures</th>
@@ -443,11 +415,6 @@ export default function Course() {
                 <td>{item.name}</td>
                 <td>
                   {item.image && <img src={item.image} className="img" />}
-                </td>
-                <td>
-                  {item.banner_img && (
-                    <img src={item.banner_img} className="img" />
-                  )}
                 </td>
                 <td>
                   {item.pdf_file && (

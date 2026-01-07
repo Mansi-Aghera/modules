@@ -138,40 +138,52 @@ export default function Faqs() {
 
       {/* FORM */}
       {isFormOpen && (
-        <form onSubmit={handleSubmit} className="bg-white p-4 rounded mb-6">
-          <input
-            name="question"
-            placeholder="Question"
-            value={formData.question}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            required
-          />
+  <form
+    onSubmit={handleSubmit}
+    className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
+  >
+    {/* QUESTION */}
+    <div className="col-span-2">
+      <label className="block mb-1 font-medium">Question</label>
+      <input
+        name="question"
+        value={formData.question}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        placeholder="Enter question"
+        required
+      />
+    </div>
 
-          <textarea
-            name="answer"
-            placeholder="Answer"
-            value={formData.answer}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            rows={4}
-            required
-          />
+    {/* ANSWER */}
+    <div className="col-span-2">
+      <label className="block mb-1 font-medium">Answer</label>
+      <textarea
+        name="answer"
+        value={formData.answer}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        rows={4}
+        placeholder="Enter answer"
+        required
+      />
+    </div>
 
-          <div className="flex gap-2">
-            <button className="bg-green-600 text-white px-4 py-2 rounded">
-              {editingFaq ? "Update" : "Save"}
-            </button>
-            <button
-              type="button"
-              onClick={closeForm}
-              className="px-4 py-2 border rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      )}
+    {/* ACTIONS */}
+    <div className="col-span-2 flex gap-3">
+      <button className="bg-green-600 text-white px-6 py-2 rounded">
+        {editingFaq ? "Update FAQ" : "Save FAQ"}
+      </button>
+      <button
+        type="button"
+        onClick={closeForm}
+        className="border px-6 py-2 rounded"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+)}
 
       {/* VIEW */}
       {viewFaq && (

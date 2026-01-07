@@ -30,6 +30,19 @@ function Sidebar() {
             Course
           </Link>
         </li>
+
+        <li className="nav-item">
+          <Link className="nav-link text-white" to="/articles">
+            Articles
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link className="nav-link text-white" to="/modules">
+            Modules
+          </Link>
+        </li>
+
       </ul>
     </div>
   );

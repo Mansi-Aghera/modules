@@ -447,69 +447,92 @@ export default function Testimonials() {
 
       {/* FORM */}
       {isFormOpen && (
-        <form onSubmit={handleSubmit} className="bg-white p-4 rounded mb-6">
+  <form
+    onSubmit={handleSubmit}
+    className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
+  >
+    {/* NAME */}
+    <div>
+      <label className="block mb-1 font-medium">Name</label>
+      <input
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        placeholder="Enter name"
+        required
+      />
+    </div>
 
-          <input
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            required
-          />
+    {/* RATING */}
+    <div>
+      <label className="block mb-1 font-medium">Rating</label>
+      <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        value={formData.rating}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        required
+      />
+    </div>
 
-          <textarea
-            name="review"
-            placeholder="Review"
-            value={formData.review}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            rows={4}
-            required
-          />
+    {/* REVIEW */}
+    <div className="col-span-2">
+      <label className="block mb-1 font-medium">Review</label>
+      <textarea
+        name="review"
+        value={formData.review}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        rows={4}
+        placeholder="Write testimonial review"
+        required
+      />
+    </div>
 
-          <input
-            type="number"
-            name="rating"
-            min="1"
-            max="5"
-            value={formData.rating}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            required
-          />
+    {/* CATEGORY */}
+    <div>
+      <label className="block mb-1 font-medium">Category</label>
+      <input
+        type="number"
+        name="category"
+        value={formData.category}
+        onChange={handleInputChange}
+        className="w-full border rounded px-3 py-2"
+        required
+      />
+    </div>
 
-          <input
-            type="number"
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-            required
-          />
+    {/* IMAGE */}
+    <div>
+      <label className="block mb-1 font-medium">Image</label>
+      <input
+        type="file"
+        name="image"
+        accept="image/*"
+        onChange={handleInputChange}
+        className="w-full"
+      />
+    </div>
 
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleInputChange}
-            className="border p-2 w-full mb-3"
-          />
-
-          <div className="flex gap-2">
-            <button className="bg-green-600 text-white px-4 py-2 rounded">
-              {editingTest ? "Update" : "Save"}
-            </button>
-            <button
-              type="button"
-              onClick={closeForm}
-              className="px-4 py-2 border rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      )}
+    {/* ACTIONS */}
+    <div className="col-span-2 flex gap-3">
+      <button className="bg-green-600 text-white px-6 py-2 rounded">
+        {editingTest ? "Update Testimonial" : "Save Testimonial"}
+      </button>
+      <button
+        type="button"
+        onClick={closeForm}
+        className="border px-6 py-2 rounded"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+)}
 
       {/* VIEW */}
       {viewTest && (
