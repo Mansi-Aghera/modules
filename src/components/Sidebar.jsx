@@ -26,6 +26,12 @@ function Sidebar() {
         </li>
 
         <li className="nav-item">
+          <Link className="nav-link text-white" to="/categorgy">
+            Category
+          </Link>
+        </li>
+
+        <li className="nav-item">
           <Link className="nav-link text-white" to="/course">
             Course
           </Link>
@@ -40,6 +46,12 @@ function Sidebar() {
         <li className="nav-item">
           <Link className="nav-link text-white" to="/modules">
             Modules
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link className="nav-link text-white" to="/topics">
+            Topics
           </Link>
         </li>
 

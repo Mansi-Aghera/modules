@@ -12,6 +12,8 @@ import Testimonials from "./pages/Testimonials";
 import Course from "./pages/Course";
 import Articles from "./pages/Articles";
 import Module from "./pages/Module";
+import Topics from "./pages/Topics";
+import Category from "./pages/Category";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
             <Route path="/course" element={<Course />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/modules" element={<Module />} />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/categorgy" element={<Category />} />
           </Routes>
         </div>
       </div>
