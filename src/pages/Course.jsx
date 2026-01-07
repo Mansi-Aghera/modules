@@ -6,6 +6,8 @@ import {
   deleteCourse,
 } from "../services/courses.service";
 import { Plus, Pencil, Trash2, Eye } from "lucide-react";
+import "../pages/bed.css";
+
 
 export default function Course() {
   const [courses, setCourses] = useState([]);
@@ -138,9 +140,9 @@ export default function Course() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-6 max-w-7xl mx-auto page-wrapper">
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Course Management</h1>
+        <h1 className="text-2xl font-bold page-title">Course Management</h1>
         <button
           onClick={openAddForm}
           className="bg-indigo-600 text-white px-4 py-2 rounded flex gap-2"
@@ -155,7 +157,7 @@ export default function Course() {
       {isFormOpen && (
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
+          className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6 card"
         >
           {/* NAME */}
           <div>
@@ -327,7 +329,7 @@ export default function Course() {
 
       {/* ✅ FULL VIEW */}
       {viewCourse && (
-        <div className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-4">
+        <div className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-4 view-panel">
           <div>
             <b>Name:</b> {viewCourse.name}
           </div>
@@ -419,7 +421,7 @@ export default function Course() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="w-full border text-sm">
+        <table className="w-full border text-sm table-wrapper">
           <thead>
             <tr className="bg-gray-100">
               <th>Name</th>

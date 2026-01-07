@@ -300,6 +300,7 @@ import {
 import { Eye, Pencil, Trash2, Plus } from "lucide-react";
 import "./bed.css";
 
+
 const BASE_URL = "https://codingcloud.pythonanywhere.com";
 
 // 🔥 IMAGE URL FIX (handles absolute + relative)

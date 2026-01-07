@@ -1,4 +1,6 @@
 import React from "react";
+import "./bed.css";
+
 
 function Dashboard() {
   return (
