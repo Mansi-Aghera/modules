@@ -1,3 +1,236 @@
+// import { useEffect, useState } from "react";
+// import {
+//   getFaqs,
+//   createFaq,
+//   updateFaq,
+//   deleteFaq,
+// } from "../services/faqs.services";
+// import { Eye, Pencil, Trash2, Plus } from "lucide-react";
+// import "./bed.css";
+
+// export default function Faqs() {
+
+//   // ================= STATE =================
+//   const [faqs, setFaqs] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState("");
+
+//   const [isFormOpen, setIsFormOpen] = useState(false);
+//   const [editingFaq, setEditingFaq] = useState(null);
+//   const [viewFaq, setViewFaq] = useState(null);
+
+//   // 🔥 backend requires course
+//   const COURSE_ID = 23;
+
+//   const [formData, setFormData] = useState({
+//     question: "",
+//     answer: "",
+//   });
+
+//   // ================= LOAD FAQS =================
+//   useEffect(() => {
+//     loadFaqs();
+//   }, []);
+
+//   const loadFaqs = async () => {
+//     try {
+//       setLoading(true);
+
+//       const data = await getFaqs(); // 👈 ARRAY
+//       console.log("FAQS 👉", data);
+
+//       setFaqs(data);
+//       setError("");
+//     } catch {
+//       setError("Failed to load FAQs");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // ================= FORM =================
+//   const openAddForm = () => {
+//     setFormData({ question: "", answer: "" });
+//     setEditingFaq(null);
+//     setViewFaq(null);
+//     setIsFormOpen(true);
+//   };
+
+//   const openEditForm = (faq) => {
+//     setFormData({
+//       question: faq.question,
+//       answer: faq.answer,
+//     });
+//     setEditingFaq(faq);
+//     setIsFormOpen(true);
+//   };
+
+//   const closeForm = () => {
+//     setIsFormOpen(false);
+//     setEditingFaq(null);
+//     setError("");
+//   };
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((old) => ({ ...old, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       setLoading(true);
+
+//       const payload = {
+//         course: COURSE_ID, // 🔥 REQUIRED
+//         question: formData.question,
+//         answer: formData.answer,
+//       };
+
+//       if (editingFaq) {
+//         await updateFaq(editingFaq.id, payload);
+//       } else {
+//         await createFaq(payload);
+//       }
+
+//       closeForm();
+//       loadFaqs(); // 👈 UI refresh
+//     } catch (err) {
+//       console.log("FAQ SAVE ERROR 👉", err.response?.data);
+//       setError("Failed to save FAQ");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // ================= VIEW & DELETE =================
+//   const openView = (faq) => {
+//     setViewFaq(faq);
+//     setIsFormOpen(false);
+//   };
+
+//   const deleteItem = async (id) => {
+//     if (!window.confirm("Delete this FAQ?")) return;
+//     try {
+//       await deleteFaq(id);
+//       loadFaqs();
+//     } catch {
+//       setError("Delete failed");
+//     }
+//   };
+
+//   // ================= UI =================
+//   return (
+//     <div className="p-6 max-w-6xl mx-auto">
+
+//       <div className="flex justify-between mb-6">
+//         <h1 className="text-2xl font-bold">FAQ Management</h1>
+//         <button
+//           onClick={openAddForm}
+//           className="bg-indigo-600 text-white px-4 py-2 rounded"
+//         >
+//           <Plus size={16} /> Add FAQ
+//         </button>
+//       </div>
+
+//       {error && <p className="text-red-600 mb-4">{error}</p>}
+
+//       {/* FORM */}
+//       {isFormOpen && (
+//   <form
+//     onSubmit={handleSubmit}
+//     className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
+//   >
+//     {/* QUESTION */}
+//     <div className="col-span-2">
+//       <label className="block mb-1 font-medium">Question</label>
+//       <input
+//         name="question"
+//         value={formData.question}
+//         onChange={handleInputChange}
+//         className="w-full border rounded px-3 py-2"
+//         placeholder="Enter question"
+//         required
+//       />
+//     </div>
+
+//     {/* ANSWER */}
+//     <div className="col-span-2">
+//       <label className="block mb-1 font-medium">Answer</label>
+//       <textarea
+//         name="answer"
+//         value={formData.answer}
+//         onChange={handleInputChange}
+//         className="w-full border rounded px-3 py-2"
+//         rows={4}
+//         placeholder="Enter answer"
+//         required
+//       />
+//     </div>
+
+//     {/* ACTIONS */}
+//     <div className="col-span-2 flex gap-3">
+//       <button className="bg-green-600 text-white px-6 py-2 rounded">
+//         {editingFaq ? "Update FAQ" : "Save FAQ"}
+//       </button>
+//       <button
+//         type="button"
+//         onClick={closeForm}
+//         className="border px-6 py-2 rounded"
+//       >
+//         Cancel
+//       </button>
+//     </div>
+//   </form>
+// )}
+
+//       {/* VIEW */}
+//       {viewFaq && (
+//         <div className="bg-white p-4 rounded mb-6">
+//           <p><b>Question:</b> {viewFaq.question}</p>
+//           <p className="mt-2"><b>Answer:</b> {viewFaq.answer}</p>
+//           <button onClick={() => setViewFaq(null)} className="mt-3 underline">
+//             Back
+//           </button>
+//         </div>
+//       )}
+
+//       {/* LIST */}
+//       {loading ? (
+//         <p>Loading...</p>
+//       ) : (
+//         <table className="w-full border">
+//           <thead>
+//             <tr className="bg-gray-100">
+//               <th>Question</th>
+//               <th>Actions</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {faqs.length === 0 ? (
+//               <tr>
+//                 <td colSpan="2" className="text-center py-4">
+//                   No FAQs found
+//                 </td>
+//               </tr>
+//             ) : (
+//               faqs.map((faq) => (
+//                 <tr key={faq.id} className="border-t">
+//                   <td>{faq.question}</td>
+//                   <td className="flex gap-2">
+//                     <button onClick={() => openView(faq)}><Eye size={16} /></button>
+//                     <button onClick={() => openEditForm(faq)}><Pencil size={16} /></button>
+//                     <button onClick={() => deleteItem(faq.id)}><Trash2 size={16} /></button>
+//                   </td>
+//                 </tr>
+//               ))
+//             )}
+//           </tbody>
+//         </table>
+//       )}
+//     </div>
+//   );
+// }
 
 import { useEffect, useState } from "react";
 import {
@@ -6,13 +239,14 @@ import {
   updateFaq,
   deleteFaq,
 } from "../services/faqs.services";
+import { getCourses } from "../services/courses.service";
 import { Eye, Pencil, Trash2, Plus } from "lucide-react";
 import "./bed.css";
 
 export default function Faqs() {
-
   // ================= STATE =================
   const [faqs, setFaqs] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -20,26 +254,22 @@ export default function Faqs() {
   const [editingFaq, setEditingFaq] = useState(null);
   const [viewFaq, setViewFaq] = useState(null);
 
-  // 🔥 backend requires course
-  const COURSE_ID = 23;
-
   const [formData, setFormData] = useState({
+    course: "",
     question: "",
     answer: "",
   });
 
-  // ================= LOAD FAQS =================
+  // ================= LOAD =================
   useEffect(() => {
     loadFaqs();
+    loadCourses();
   }, []);
 
   const loadFaqs = async () => {
     try {
       setLoading(true);
-
-      const data = await getFaqs(); // 👈 ARRAY
-      console.log("FAQS 👉", data);
-
+      const data = await getFaqs();
       setFaqs(data);
       setError("");
     } catch {
@@ -49,9 +279,18 @@ export default function Faqs() {
     }
   };
 
+  const loadCourses = async () => {
+    try {
+      const data = await getCourses();
+      setCourses(data);
+    } catch {
+      console.error("Failed to load courses");
+    }
+  };
+
   // ================= FORM =================
   const openAddForm = () => {
-    setFormData({ question: "", answer: "" });
+    setFormData({ course: "", question: "", answer: "" });
     setEditingFaq(null);
     setViewFaq(null);
     setIsFormOpen(true);
@@ -59,6 +298,7 @@ export default function Faqs() {
 
   const openEditForm = (faq) => {
     setFormData({
+      course: faq.course,
       question: faq.question,
       answer: faq.answer,
     });
@@ -72,6 +312,11 @@ export default function Faqs() {
     setError("");
   };
 
+  const getCourseName = (courseId) => {
+    const course = courses.find((c) => c.id === courseId);
+    return course ? course.name : "-";
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((old) => ({ ...old, [name]: value }));
@@ -79,11 +324,12 @@ export default function Faqs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
 
       const payload = {
-        course: COURSE_ID, // 🔥 REQUIRED
+        course: Number(formData.course),
         question: formData.question,
         answer: formData.answer,
       };
@@ -95,7 +341,7 @@ export default function Faqs() {
       }
 
       closeForm();
-      loadFaqs(); // 👈 UI refresh
+      loadFaqs();
     } catch (err) {
       console.log("FAQ SAVE ERROR 👉", err.response?.data);
       setError("Failed to save FAQ");
@@ -123,7 +369,6 @@ export default function Faqs() {
   // ================= UI =================
   return (
     <div className="p-6 max-w-6xl mx-auto">
-
       <div className="flex justify-between mb-6">
         <h1 className="text-2xl font-bold">FAQ Management</h1>
         <button
@@ -138,58 +383,82 @@ export default function Faqs() {
 
       {/* FORM */}
       {isFormOpen && (
-  <form
-    onSubmit={handleSubmit}
-    className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
-  >
-    {/* QUESTION */}
-    <div className="col-span-2">
-      <label className="block mb-1 font-medium">Question</label>
-      <input
-        name="question"
-        value={formData.question}
-        onChange={handleInputChange}
-        className="w-full border rounded px-3 py-2"
-        placeholder="Enter question"
-        required
-      />
-    </div>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6 rounded mb-6 grid grid-cols-2 gap-6"
+        >
+          {/* COURSE */}
+          <div className="col-span-2">
+            <label className="block mb-1 font-medium">Course</label>
+            <select
+              name="course"
+              value={formData.course}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select Course</option>
+              {courses.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-    {/* ANSWER */}
-    <div className="col-span-2">
-      <label className="block mb-1 font-medium">Answer</label>
-      <textarea
-        name="answer"
-        value={formData.answer}
-        onChange={handleInputChange}
-        className="w-full border rounded px-3 py-2"
-        rows={4}
-        placeholder="Enter answer"
-        required
-      />
-    </div>
+          {/* QUESTION */}
+          <div className="col-span-2">
+            <label className="block mb-1 font-medium">Question</label>
+            <input
+              name="question"
+              value={formData.question}
+              onChange={handleInputChange}
+              placeholder="Enter question"
+              required
+            />
+          </div>
 
-    {/* ACTIONS */}
-    <div className="col-span-2 flex gap-3">
-      <button className="bg-green-600 text-white px-6 py-2 rounded">
-        {editingFaq ? "Update FAQ" : "Save FAQ"}
-      </button>
-      <button
-        type="button"
-        onClick={closeForm}
-        className="border px-6 py-2 rounded"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
-)}
+          {/* ANSWER */}
+          <div className="col-span-2">
+            <label className="block mb-1 font-medium">Answer</label>
+            <textarea
+              name="answer"
+              value={formData.answer}
+              onChange={handleInputChange}
+              rows={4}
+              placeholder="Enter answer"
+              required
+            />
+          </div>
+
+          {/* ACTIONS */}
+          <div className="col-span-2 flex gap-3">
+            <button className="bg-green-600 text-white px-6 py-2 rounded">
+              {editingFaq ? "Update FAQ" : "Save FAQ"}
+            </button>
+            <button
+              type="button"
+              onClick={closeForm}
+              className="border px-6 py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
 
       {/* VIEW */}
       {viewFaq && (
         <div className="bg-white p-4 rounded mb-6">
-          <p><b>Question:</b> {viewFaq.question}</p>
-          <p className="mt-2"><b>Answer:</b> {viewFaq.answer}</p>
+          <p>
+            <b>Course:</b> {getCourseName(viewFaq.course)}
+          </p>
+          <p className="mt-2">
+            <b>Question:</b> {viewFaq.question}
+          </p>
+          <p className="mt-2">
+            <b>Answer:</b> {viewFaq.answer}
+          </p>
+
           <button onClick={() => setViewFaq(null)} className="mt-3 underline">
             Back
           </button>
@@ -200,9 +469,10 @@ export default function Faqs() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="w-full border">
+        <table>
           <thead>
-            <tr className="bg-gray-100">
+            <tr>
+              <th>Course</th>
               <th>Question</th>
               <th>Actions</th>
             </tr>
@@ -210,18 +480,25 @@ export default function Faqs() {
           <tbody>
             {faqs.length === 0 ? (
               <tr>
-                <td colSpan="2" className="text-center py-4">
+                <td colSpan="3" className="text-center py-4">
                   No FAQs found
                 </td>
               </tr>
             ) : (
               faqs.map((faq) => (
-                <tr key={faq.id} className="border-t">
-                  <td>{faq.question}</td>
+                <tr key={faq.id}>
+                  <td>{getCourseName(faq.course)}</td>
+                  <td className="td-clamp">{faq.question}</td>
                   <td className="flex gap-2">
-                    <button onClick={() => openView(faq)}><Eye size={16} /></button>
-                    <button onClick={() => openEditForm(faq)}><Pencil size={16} /></button>
-                    <button onClick={() => deleteItem(faq.id)}><Trash2 size={16} /></button>
+                    <button onClick={() => openView(faq)}>
+                      <Eye size={16} />
+                    </button>
+                    <button onClick={() => openEditForm(faq)}>
+                      <Pencil size={16} />
+                    </button>
+                    <button onClick={() => deleteItem(faq.id)}>
+                      <Trash2 size={16} />
+                    </button>
                   </td>
                 </tr>
               ))

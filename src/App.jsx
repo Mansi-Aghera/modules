@@ -23,7 +23,7 @@ function App() {
       <div className="content flex-grow-1 app-main">
         <Navbar />
 
-        <div className="container-fluid mt-4 app-content">
+        <div className="container-fluid mt-4 p-6 max-w-6xl mx-auto">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/faqs" element={<Faqs />} />

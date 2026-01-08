@@ -24,7 +24,7 @@
 //     name: "",
 //     review: "",
 //     rating: 1,
-//     category: 44,
+//     category: "",
 //     image: null,
 //   });
 
@@ -52,7 +52,7 @@
 //       name: "",
 //       review: "",
 //       rating: 1,
-//       category: 44,
+//       category: "",
 //       image: null,
 //     });
 //     setEditingTest(null);
@@ -299,6 +299,8 @@ import {
 } from "../services/testimonials.service";
 import { Eye, Pencil, Trash2, Plus } from "lucide-react";
 import "./bed.css";
+import { getCategories } from "../services/category.service";
+
 
 
 const BASE_URL = "https://codingcloud.pythonanywhere.com";
@@ -320,19 +322,23 @@ export default function Testimonials() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTest, setEditingTest] = useState(null);
   const [viewTest, setViewTest] = useState(null);
+  const [categories, setCategories] = useState([]);
+
 
   const [formData, setFormData] = useState({
     name: "",
     review: "",
     rating: 1,
-    category: 44,
+    category: "",
     image: null,
   });
 
   // ================= LOAD =================
   useEffect(() => {
-    loadTests();
-  }, []);
+  loadTests();
+  loadCategories();
+}, []);
+
 
   const loadTests = async () => {
     try {
@@ -346,6 +352,22 @@ export default function Testimonials() {
       setLoading(false);
     }
   };
+  const loadCategories = async () => {
+  try {
+    const data = await getCategories();
+    setCategories(data || []);
+  } catch (err) {
+    console.error("Failed to load categories");
+  }
+};
+
+
+  const getImageUrl = (image) => {
+  if (!image) return "";
+  if (image.startsWith("http")) return image; // ✅ your case
+  return `https://codingcloud.pythonanywhere.com${image}`;
+};
+
 
   // ================= FORM =================
   const openAddForm = () => {
@@ -353,7 +375,7 @@ export default function Testimonials() {
       name: "",
       review: "",
       rating: 1,
-      category: 44,
+      category: "",
       image: null,
     });
     setEditingTest(null);
@@ -391,6 +413,11 @@ export default function Testimonials() {
           : value,
     }));
   };
+
+  const getCategoryName = (id) => {
+  const cat = categories.find((c) => c.id === id);
+  return cat ? cat.name : id;
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -494,17 +521,22 @@ export default function Testimonials() {
     </div>
 
     {/* CATEGORY */}
-    <div>
       <label className="block mb-1 font-medium">Category</label>
-      <input
-        type="number"
-        name="category"
-        value={formData.category}
-        onChange={handleInputChange}
-        className="w-full border rounded px-3 py-2"
-        required
-      />
-    </div>
+    <select
+  name="category"
+  value={formData.category}
+  onChange={handleInputChange}
+  className="w-full border rounded px-3 py-2"
+  required
+>
+  <option value="">Select Category</option>
+  {categories.map((cat) => (
+    <option key={cat.id} value={cat.id}>
+      {cat.name}
+    </option>
+  ))}
+</select>
+
 
     {/* IMAGE */}
     <div>
@@ -541,7 +573,7 @@ export default function Testimonials() {
           <p><b>Name:</b> {viewTest.name}</p>
           <p><b>Review:</b> {viewTest.review}</p>
           <p><b>Rating:</b> {viewTest.rating}</p>
-          <p><b>Category:</b> {viewTest.category}</p>
+          <p><b>Category:</b> {getCategoryName(viewTest.category)}</p>
           <p className="text-sm text-gray-500">
             <b>Created:</b> {new Date(viewTest.created_at).toLocaleString()}
           </p>
@@ -588,17 +620,20 @@ export default function Testimonials() {
                 <tr key={test.id} className="border-t">
                   <td>{test.id}</td>
                   <td>
-                    {test.image && (
-                      <img
-                        src={getImageUrl(test.image)}
-                        alt=""
-                        className="w-10 h-10 object-cover rounded"
-                      />
-                    )}
-                  </td>
+  {test.image ? (
+    <img
+      src={getImageUrl(test.image)}
+      alt="testimonial"
+      className="w-10 h-10 object-cover rounded"
+    />
+  ) : (
+    <span className="text-gray-400 text-xs">No Image</span>
+  )}
+</td>
+
                   <td>{test.name}</td>
                   <td>{test.rating}</td>
-                  <td>{test.category}</td>
+                  <td>{getCategoryName(test.category)}</td>
                   <td>{new Date(test.created_at).toLocaleDateString()}</td>
                   <td className="flex gap-2">
                     <button onClick={() => openView(test)}>

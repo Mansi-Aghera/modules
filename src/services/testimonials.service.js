@@ -33,15 +33,17 @@
 // };
 
 
-import api from "./api4";
+import api from "./api2";
 
 /*
   GET ALL TESTIMONIALS
 */
 export const getTest = async () => {
   const response = await api.get("/testimonials/");
-  return response.data.data;
+  return response.data.data ?? response.data; // ✅ THIS LINE FIXES IT
 };
+
+
 
 /*
   CREATE TESTIMONIAL

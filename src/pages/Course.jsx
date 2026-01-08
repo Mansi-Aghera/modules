@@ -401,7 +401,7 @@ export default function Course() {
               <img
                 src={viewCourse.banner_img}
                 alt="banner"
-                className="w-full max-w-md mt-2 border"
+                className="w-full max-w-md mt-2 border img"
               />
             </div>
           )}
