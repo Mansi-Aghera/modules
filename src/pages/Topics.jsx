@@ -355,10 +355,10 @@ export default function Topics() {
 
             <table className="w-full border">
               <thead>
-                <tr className="bg-gray-100">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Actions</th>
+                <tr>
+                  <th style={{ width: "33%" }}>ID</th>
+                  <th style={{ width: "33%" }}>Name</th>
+                  <th style={{ width: "34%" }}>Actions</th>
                 </tr>
               </thead>
 

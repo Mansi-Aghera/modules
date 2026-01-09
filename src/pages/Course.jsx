@@ -107,17 +107,17 @@ export default function Course() {
 
     const payload = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      // 🔥 DO NOT SEND empty / null values
-      if (value === null) return;
+  if (value === null) return;
 
-      if (key === "certificate") {
-        payload.append("certificate", value === "Yes");
-      } else if (["duration", "lecture", "students"].includes(key)) {
-        payload.append(key, Number(value));
-      } else {
-        payload.append(key, value);
-      }
-    });
+  if (key === "certificate") {
+    payload.append("certificate", value === "Yes" ? "true" : "false"); // 🔥 IMPORTANT
+  } else if (["duration", "lecture", "students"].includes(key)) {
+    payload.append(key, Number(value));
+  } else {
+    payload.append(key, value);
+  }
+});
+
 
     try {
       setLoading(true);
@@ -443,7 +443,7 @@ export default function Course() {
             <tr className="bg-gray-100">
               <th>Name</th>
               <th>Image</th>
-              <th>Banner</th>
+              
               <th>PDF</th>
               <th>Duration</th>
               <th>Lectures</th>
@@ -455,49 +455,47 @@ export default function Course() {
             </tr>
           </thead>
           <tbody>
-            {courses.map((item) => (
-              <tr key={item.id} className="border-t text-center">
-                <td>{item.name}</td>
-                <td>
-                  {item.image && <img src={item.image} className="img" />}
-                </td>
-                <td>
-                  {item.banner_img ? (
-                    <img src={item.banner_img} className="img" />
-                  ) : (
-                    <span className="text-gray-400 text-xs">No Banner</span>
-                  )}
-                </td>
-                <td>
-                  {item.pdf_file && (
-                    <a
-                      href={item.pdf_file}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      View
-                    </a>
-                  )}
-                </td>
-                <td>{item.duration}</td>
-                <td>{item.lecture}</td>
-                <td>{item.students}</td>
-                <td>{item.level}</td>
-                <td>{item.language}</td>
-                <td>{item.certificate}</td>
-                <td className="flex gap-2 justify-center">
-                  <button onClick={() => openView(item)}>
-                    <Eye size={16} />
-                  </button>
-                  <button onClick={() => openEditForm(item)}>
-                    <Pencil size={16} />
-                  </button>
-                  <button onClick={() => deleteItem(item.id)}>
-                    <Trash2 size={16} />
-                  </button>
-                </td>
-              </tr>
+              {courses.map((item) => (
+            <tr key={item.id} className="border-t text-center">
+  <td>{item.name}</td>
+
+  <td>
+    {item.image && <img src={item.image} className="img" />}
+  </td>
+
+  <td>
+    {item.pdf_file && (
+      <a
+        href={item.pdf_file}
+        target="_blank"
+        rel="noreferrer"
+        className="text-blue-600 underline"
+      >
+        View
+      </a>
+    )}
+  </td>
+
+  <td>{item.duration}</td>
+  <td>{item.lecture}</td>
+  <td>{item.students}</td>
+  <td>{item.level}</td>
+  <td>{item.language}</td>
+  <td>{item.certificate}</td>
+
+  <td className="flex justify-content-left align-items-center">
+    <button onClick={() => openView(item)}>
+      <Eye size={16} />
+    </button>
+    <button onClick={() => openEditForm(item)}>
+      <Pencil size={16} />
+    </button>
+    <button onClick={() => deleteItem(item.id)}>
+      <Trash2 size={16} />
+    </button>
+  </td>
+</tr>
+
             ))}
           </tbody>
         </table>

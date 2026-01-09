@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import {
   getArticles,
@@ -291,7 +289,6 @@ export default function Articles() {
         <table className="w-full border text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th>Name</th>
               <th>Description</th>
               <th>Text</th>
               <th>Tag</th>
@@ -305,7 +302,7 @@ export default function Articles() {
             {articles.map((item) => (
               <tr key={item.id} className="border-t text-center">
                 {/* NAME */}
-                <td>{item.description}</td>
+                
 
                 {/* DESCRIPTION */}
                 <td className="max-w-xs truncate">{item.description}</td>
@@ -330,7 +327,7 @@ export default function Articles() {
                 </td>
 
                 {/* ACTIONS */}
-                <td className="flex gap-2 justify-center">
+                <td className="flex gap-2 justify-content-left align-items-center">
                   <button onClick={() => openView(item)}>
                     <Eye size={16} />
                   </button>

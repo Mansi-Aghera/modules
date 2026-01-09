@@ -306,11 +306,6 @@ import { getCategories } from "../services/category.service";
 const BASE_URL = "https://codingcloud.pythonanywhere.com";
 
 // 🔥 IMAGE URL FIX (handles absolute + relative)
-const getImageUrl = (image) => {
-  if (!image) return "";
-  if (image.startsWith("http")) return image;
-  return `${BASE_URL}${image}`;
-};
 
 export default function Testimonials() {
 
@@ -362,9 +357,10 @@ export default function Testimonials() {
 };
 
 
-  const getImageUrl = (image) => {
+
+const getImageUrl = (image) => {
   if (!image) return "";
-  if (image.startsWith("http")) return image; // ✅ your case
+  if (image.startsWith("http")) return image;
   return `https://codingcloud.pythonanywhere.com${image}`;
 };
 
@@ -420,25 +416,32 @@ export default function Testimonials() {
 };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
+  e.preventDefault();
+  try {
+    setLoading(true);
 
-      if (editingTest) {
-        await updateTest(editingTest.id, formData);
-      } else {
-        await createTest(formData);
-      }
+    const payload = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value === null || value === "") return;
+      payload.append(key, value);
+    });
 
-      closeForm();
-      loadTests();
-    } catch (err) {
-      console.log("BACKEND ERROR 👉", err.response?.data);
-      setError("Failed to save testimonial");
-    } finally {
-      setLoading(false);
+    if (editingTest) {
+      await updateTest(editingTest.id, payload);
+    } else {
+      await createTest(payload);
     }
-  };
+
+    closeForm();
+    loadTests();
+  } catch (err) {
+    console.log("BACKEND ERROR 👉", err.response?.data);
+    setError("Failed to save testimonial");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // ================= VIEW & DELETE =================
   const openView = (test) => {
@@ -541,13 +544,15 @@ export default function Testimonials() {
     {/* IMAGE */}
     <div>
       <label className="block mb-1 font-medium">Image</label>
-      <input
-        type="file"
-        name="image"
-        accept="image/*"
-        onChange={handleInputChange}
-        className="w-full"
-      />
+      {formData.image && (
+  <img
+    src={URL.createObjectURL(formData.image)}
+    alt="preview"
+    className="img"
+  />
+)}
+
+
     </div>
 
     {/* ACTIONS */}
@@ -624,7 +629,7 @@ export default function Testimonials() {
     <img
       src={getImageUrl(test.image)}
       alt="testimonial"
-      className="w-10 h-10 object-cover rounded"
+      className="img"
     />
   ) : (
     <span className="text-gray-400 text-xs">No Image</span>

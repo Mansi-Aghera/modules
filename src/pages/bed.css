@@ -989,3 +989,11 @@ td {
   overflow-wrap: anywhere;
   white-space: normal;
 }
+
+/**/
+
+table {
+  width: 100%;
+  table-layout: fixed;   /* 🔥 Important */
+  border-collapse: collapse;
+}
